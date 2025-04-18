@@ -6,8 +6,8 @@ JavaOne MCP Server is a lightweight Java application that implements the Model C
 
 ## Project Requirements
 
-- Java 24
-- Maven 3.8+
+- Java 21
+- Gradle 8+
 - Model Context Protocol SDK 0.9.0
 - SLF4J for logging
 
@@ -15,40 +15,30 @@ JavaOne MCP Server is a lightweight Java application that implements the Model C
 
 This project relies on the following key components:
 
-```xml
-<!-- MCP SDK -->
-<dependency>
-    <groupId>io.modelcontextprotocol.sdk</groupId>
-    <artifactId>mcp</artifactId>
-</dependency>
-
-<!-- Logging -->
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-api</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-simple</artifactId>
-</dependency>
+```groovy
+/*MCP SDK*/
+implementation "io.modelcontextprotocol.sdk:mcp"
+/*Logging*/
+implementation "org.slf4j:slf4j-api"
+implementation "org.slf4j:slf4j-simple"
 ```
 
 ## Getting Started
 
-After cloning the repository, you can build the project using Maven:
+After cloning the repository, you can build the project using Gradle:
 
 ```bash
-mvn clean package
+gradlew clean shadowJar
 ```
 
-This will create an executable JAR file in the `target` directory with all dependencies included.
+This will create an executable JAR file in the `build\libs` directory with all dependencies included.
 
 ## How to Run the Application
 
 Execute the JAR file to start the MCP server:
 
 ```bash
-java -jar target/javaone-mcp-0.0.2.jar
+java -jar build\libs\ai-mcp-javaone-1.0-SNAPSHOT-all.jar
 ```
 
 The application starts an MCP server that communicates via standard input/output (STDIO) and provides access to JavaOne presentation data.
@@ -95,12 +85,13 @@ The MCP Inspector is a helpful tool for testing and debugging your MCP server. F
 
 ```bash
 # On Linux/macOS
-FULL_PATH=$(pwd)/target/javaone-mcp-0.0.2.jar
+FULL_PATH=$(pwd)/build/libs/ai-mcp-javaone-1.0-SNAPSHOT-all.jar
 echo $FULL_PATH
 
 # On Windows PowerShell
-$FULL_PATH="$(Get-Location)\target\javaone-mcp-0.0.2.jar"
+$FULL_PATH="$(Get-Location)\build\libs\ai-mcp-javaone-1.0-SNAPSHOT-all.jar"
 echo $FULL_PATH
+# Use \\ instead of \ on windows path
 ```
 
 3. Run the MCP Inspector with your server using the full path:
@@ -110,10 +101,10 @@ npx @modelcontextprotocol/inspector java -jar $FULL_PATH
 ```
 
 4. In the Inspector interface:
-    - Verify the server connection in the connection pane
-    - Navigate to the "Tools" tab to see the `get_presentations` tool
-    - Test the tool by clicking on it and viewing the response
-    - Monitor logs in the Notifications pane
+   - Verify the server connection in the connection pane
+   - Navigate to the "Tools" tab to see the `get_presentations` tool
+   - Test the tool by clicking on it and viewing the response
+   - Monitor logs in the Notifications pane
 
 ## Integrating with Claude Desktop
 
@@ -127,8 +118,9 @@ FULL_PATH=$(pwd)/target/javaone-mcp-0.0.2.jar
 echo $FULL_PATH
 
 # On Windows PowerShell
-$FULL_PATH="$(Get-Location)\target\javaone-mcp-0.0.2.jar"
+$FULL_PATH="$(Get-Location)\build\libs\ai-mcp-javaone-1.0-SNAPSHOT-all.jar"
 echo $FULL_PATH
+# Use \\ instead of \ on windows path
 ```
 
 2. Open Claude Desktop preferences

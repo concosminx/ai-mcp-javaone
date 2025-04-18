@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group 'com.nimsoc.ai'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform("io.modelcontextprotocol.sdk:mcp-bom:0.9.0")
+    implementation platform("org.slf4j:slf4j-bom:2.0.17")
+
+    /*MCP SDK*/
+    implementation "io.modelcontextprotocol.sdk:mcp"
+    /*SLF4J facade*/
+    implementation "org.slf4j:slf4j-api"
+    /*Simple console backend (swap for logback-classic, etc. as needed)*/
+    implementation "org.slf4j:slf4j-simple"
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "dev.danvega.javaone.Application"
+    }
+
+}
+
+
+test {
+    useJUnitPlatform()
+}
